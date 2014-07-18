@@ -1,22 +1,121 @@
 <?php
-class Message {
-	protected $errors = array();
-	public function error($message)
-	{
-		$this->errors[] = $message;
-	}
-	public function run()
-	{
-		if(! empty($this->errors))
-		{;
-			@header("HTTP/1.0 500 ".$this->errors[0], true, $code);
-			foreach($this->errors as $error)
-			{
-				echo "<b>" . $error . "</b><br/>";
-			}
-			die();
-		}
-	}
+function printHeader() {
+	echo <<<EOT
+<style>
+* {
+	margin: 0;
+	padding: 0;
+}
+*, *:before, *:after {
+  -moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: border-box;
+ }
+.responsive {
+	min-width: 512px;
+	width: 100%;
+	max-width: 730px;
+}
+section, footer, header, aside, nav {
+	display: block;
+}
+#error:before {
+	content: "Error: ";
+	color: rgb(213, 134, 48);
+	font-weight: bold;
+	font-size: 120%;
+}
+body {
+	font-size: 17px;
+	line-height: 1.6em;
+	font-family: Georgia, sans-serif;
+	background: #F7F7F7;
+	color: #444444;
+}
+#cover {
+	padding: 0 0 20px 0;
+	float: left;
+	width: 100%;
+}
+#header-wrapper {
+	float: left;
+	width: 100%;
+	position: relative;
+}
+#header {
+	position: relative;
+	padding: 0 15px;
+	margin: 0 auto;
+}
+#branding {
+	text-align: left;
+	position: relative;
+	width: 100%;
+	float: left;
+	margin: 1em 0;
+	text-shadow: 0 1px 0 #ffffff;
+}
+#branding h1, #branding h2 {
+	font-size: 36px;
+	font-family: Georgia,sans-serif;
+	margin: 0;
+}
+#branding p {
+	margin: 0;
+	font-style: italic;
+	margin-top: 5px;
+}
+#main-wrapper {
+	float: left;
+	width: 100%;
+	background: #ffffff;
+	position: relative;
+	border-top: 1px solid #DFDFDF;
+	border-bottom: 1px solid #DFDFDF;
+}
+#main {
+	position: relative;
+	padding: 0;
+	margin: 0 auto;
+	background: #ffffff;
+	overflow: hidden;
+	padding: 30px 15px;
+}
+label{
+	width: 100%;
+	max-width: 180px;
+	float:left;
+}
+input:not([type=submit]), select{
+	float:left;
+	width: 100%;
+	max-width: 520px;
+	font-size: 80%;
+}
+input{
+	padding: 2px;
+}
+input[type=submit]{
+	margin-top: 10px;
+	padding: 5px;
+	width: 100%;
+}
+</style>
+<div id="cover">
+	<div id="header-wrapper">
+		<header id="header" class="responsive">
+			<div id="branding">
+				<h1>
+					HTMLy
+				</h1>
+				<div id="blog-tagline">
+					<p>the HTMLy Installer Tool</p>
+				</div>
+			</div>
+		</header>
+	</div>
+</div>
+<div id="main-wrapper">
+	<div id="main" class="responsive">
+EOT;
 }
 
 //http://de3.php.net/manual/en/function.is-writable.php#73596
@@ -55,7 +154,7 @@ function testTheEnvironment() {
 	$message = new Message;
 
 	if(!defined('PHP_VERSION_ID') || PHP_VERSION_ID < 50300) {
-		$message->error('dispatch requires at least PHP 5.3 to run.');
+		$message->error('HTMLy requires at least PHP 5.3 to run.');
 	}
 	if(!in_array('https', stream_get_wrappers()))
 	{
@@ -66,6 +165,26 @@ function testTheEnvironment() {
 		$message->error('no permission to write in ' . $file . '.');
 	}
 	$message->run();
+}
+
+class Message {
+	protected $errors = array();
+	public function error($message)
+	{
+		$this->errors[] = $message;
+	}
+	public function run()
+	{
+		if(! empty($this->errors))
+		{;
+			@header("HTTP/1.0 500 ".$this->errors[0], true, $code);
+			foreach($this->errors as $error)
+			{
+				echo '<p id="error">' . $error . "</p>";
+			}
+			die();
+		}
+	}
 }
 
 class CacheOneFile {
@@ -249,33 +368,57 @@ class Settings {
 	protected function printForm() { //EOT
 return <<<EOT
 <html>
-	<h1>Hallo</h1>
 	<form method="POST">
+		<label for="user_name">Username:</label>
 		<input name="user_name" value="" placeholder="Your User Name">
+		<br/>
+		<label for="user_password">Password:</label>
 		<input name="user_password" value="" type="password" placeholder="Password">
 		<br/>
+		<br/>
+		<label for="blog_title">Blog Title:</label>
 		<input name="blog_title" value="" placeholder="HTMLy">
+		<br/>
+		<label for="blog_tagline">Blog Tagline:</label>
 		<input name="blog_tagline" value="" placeholder="Just another HTMLy blog">
+		<br/>
+		<label for="blog_description">Blog Description:</label>
 		<input name="blog_description" value="" placeholder="Proudly powered by HTMLy, a databaseless blogging platform.">
+		<br/>
+		<label for="blog_copyright">Blog Copyright:</label>
 		<input name="blog_copyright" value="" placeholder="(c) Your name.">
 		<br/>
-		<input name="social_twitter" value="" placeholder="https://twitter.com">
-		<input name="social_facebook" value="" placeholder="https://www.facebook.com">
-		<input name="social_google" value="" placeholder="https://plus.google.com">
-		<input name="social_tumblr" value="" placeholder="http://www.tumblr.com">
 		<br/>
+		<label for="social_twitter">Twitter Link:</label>
+		<input name="social_twitter" type="url" value="" placeholder="https://twitter.com">
+		<br/>
+		<label for="social_facebook">Facebook Link:</label>
+		<input name="social_facebook" type="url" value="" placeholder="https://www.facebook.com">
+		<br/>
+		<label for="social_google">Google+ Link:</label>
+		<input name="social_google" type="url" value="" placeholder="https://plus.google.com">
+		<br/>
+		<label for="social_tumblr">Tumblr Link:</label>
+		<input name="social_tumblr" type="url" value="" placeholder="http://www.tumblr.com">
+		<br/>
+		<br/>
+		<label for="comment_system">Comment System:</label>
 		<select name="comment_system" onchange="checkIfOther();" id="comment.system">
 		   <option value="disable">disable</option>
 		   <option value="facebook">facebook</option>
 		   <option value="disqus">disqus</option>
         </select>
 		<div id="facebook" style="display:none">
+			<br/>
+			<label for="fb_appid">Facebook AppId:</label>
 			<input name="fb_appid" value="" placeholder="facebook AppId">
 		</div>
 		<div id="disqus" style="display:none">
+			<br/>
+			<label for="disqus_shortname">Disqus Shortname:</label>
 			<input name="disqus_shortname" value="" placeholder="disqus shortname">
 		</div>
-		<br/><input type="submit">
+		<br/><input type="submit" value="Install via Tool">
 	</form>
 	<script>
 function checkIfOther(){
@@ -457,8 +600,8 @@ EOT;
 		if(from($_REQUEST,'user_name') && from($_REQUEST,'user_password'))
 		{
 			$this->saveConfigs();
-			//$this->install();
-			//$_SESSION[$this->siteUrl]["user"] = $this->user;
+			$this->install();
+			$_SESSION[$this->siteUrl]["user"] = $this->user;
 		}
 		if(isset($_SESSION[$this->siteUrl]["user"]))
 		{
@@ -471,12 +614,13 @@ EOT;
 		}
 	}
 	
-	protected function install()
-	{
+	protected function install() {
 		$updater = new Updater;
 		$updater->update();
 	}
 }
+
+printHeader();
 testTheEnvironment();
 $set = new Settings;
 $set->runForm();
