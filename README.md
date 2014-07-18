@@ -3,8 +3,8 @@ htmly installer.php
 
 Download:
 ---------------
-* <b>you can Download the stable Versions [Here](https://github.com/Kanti/htmly-installer/releases)</b>
-* and the development Version [Here](https://github.com/Kanti/htmly-installer/archive/master.zip)
+* <b>You can Download the latest stable Version [Here](https://github.com/Kanti/htmly-installer/releases/latest)</b>
+* and the development Version [Here](https://github.com/Kanti/htmly-installer/archive/master.zip).
 
 Requirements
 ---------------
