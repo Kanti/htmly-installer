@@ -408,7 +408,7 @@ return <<<EOT
 		<input name="social_google" type="url" value="" placeholder="https://plus.google.com">
 		<br/>
 		<label for="social_tumblr">Tumblr Link:</label>
-		<input name="social_tumblr" type="url" value="" placeholder="http://www.tumblr.com">
+		<input name="social_tumblr" type="url" value="" placeholder="https://www.tumblr.com">
 		<br/>
 		<br/>
 		<label for="comment_system">Comment System:</label>
