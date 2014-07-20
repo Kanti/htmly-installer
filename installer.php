@@ -272,7 +272,7 @@ section, footer, header, aside, nav {
 
 .warning:before {
 	content: "Warning: ";
-	color: yellow;
+	color: gold;
 	font-weight: bold;
 	font-size: 120%;
 }
