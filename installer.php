@@ -38,6 +38,11 @@ class Message {
 	{
 		$this->errors[] = $message;
 	}
+	protected $warnings = array();
+	public function warning($message)
+	{
+		$this->warnings[] = $message;
+	}
 	public function run()
 	{
 		$string = "";
@@ -46,6 +51,13 @@ class Message {
 			foreach($this->errors as $error)
 			{
 				$string .= '<p id="error">' . $error . "</p>";
+			}
+		}
+		if(! empty($this->warnings))
+		{
+			foreach($this->warnings as $warning)
+			{
+				$string .= '<p id="warning">' . $warning . "</p>";
 			}
 		}
 		return $string;
@@ -594,9 +606,13 @@ EOT;
 		{
 			$message->error('Installer needs the https wrapper, please install openssl.');
 		}
+		if(!in_array('mod_rewrite', apache_get_modules()))
+		{
+			$message->warning('mod_rewrite must be enabled if you use Apache.');
+		}
 		if(!is__writable("./"))
 		{
-			$message->error('no permission to write in ' . $file . '.');
+			$message->error('no permission to write in the Directory.');
 		}
 		return $message->run();
 	}
@@ -632,11 +648,8 @@ EOT;
 			$_SESSION[$this->siteUrl]["user"] = $this->user;
 			return true;
 		}
-		if(isset($_SESSION[$this->siteUrl]["user"]))
-		{
-			return true;
-		}
 		else{
+			unset($_SESSION[$this->siteUrl]["user"]);
 			return false;
 		}
 	}
