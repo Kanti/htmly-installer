@@ -50,14 +50,14 @@ class Message {
 		{
 			foreach($this->errors as $error)
 			{
-				$string .= '<p id="error">' . $error . "</p>";
+				$string .= '<p class="error">' . $error . "</p>";
 			}
 		}
 		if(! empty($this->warnings))
 		{
 			foreach($this->warnings as $warning)
 			{
-				$string .= '<p id="warning">' . $warning . "</p>";
+				$string .= '<p class="warning">' . $warning . "</p>";
 			}
 		}
 		return $string;
@@ -263,9 +263,16 @@ return <<<EOT
 section, footer, header, aside, nav {
 	display: block;
 }
-#error:before {
+.error:before {
 	content: "Error: ";
-	color: rgb(213, 134, 48);
+	color: red;
+	font-weight: bold;
+	font-size: 120%;
+}
+
+.warning:before {
+	content: "Warning: ";
+	color: gold;
 	font-weight: bold;
 	font-size: 120%;
 }
