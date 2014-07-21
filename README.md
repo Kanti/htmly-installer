@@ -17,4 +17,9 @@ How does it work?
 2. Then open it via your Browser.
 3. Fill in the information and press "Install via Tool".
 4. wait a little bit.
-5. 'tada' your Blog is ready to use.
+5. 'tada' your [HTMLy Blog](https://github.com/danpros/htmly) is ready to use.
+
+How to contribute?
+---------------
+Do a pull request, with a good description.
+I will answer in 3 Days. Most of the time ;)
