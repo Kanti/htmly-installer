@@ -382,10 +382,10 @@ return <<<EOT
 <html>
 	<form method="POST">
 		<label for="user_name">Username:<span class="required">*</span></label>
-		<input name="user_name" value="" placeholder="Your User Name">
+		<input name="user_name" value="" placeholder="Your User Name" required>
 		<br/>
 		<label for="user_password">Password:<span class="required">*</span></label>
-		<input name="user_password" value="" type="password" placeholder="Password">
+		<input name="user_password" value="" type="password" placeholder="Password" required>
 		<br/>
 		<br/>
 		<label for="blog_title">Blog Title:</label>
