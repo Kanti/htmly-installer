@@ -381,10 +381,10 @@ EOT;
 return <<<EOT
 <html>
 	<form method="POST">
-		<label for="user_name">Username <span class="required">*</span>:</label>
+		<label for="user_name">Username:<span class="required">*</span></label>
 		<input name="user_name" value="" placeholder="Your User Name">
 		<br/>
-		<label for="user_password">Password <span class="required">*</span>:</label>
+		<label for="user_password">Password:<span class="required">*</span></label>
 		<input name="user_password" value="" type="password" placeholder="Password">
 		<br/>
 		<br/>
