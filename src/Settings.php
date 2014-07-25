@@ -1,4 +1,5 @@
 <?php
+
 class Settings {
 
     protected $user = "";
@@ -143,173 +144,72 @@ EOT;
 
     protected function printForm() { //EOT
         return <<<EOT
-<html>
-	<form method="POST">
-		<label for="user_name">Username:<span class="required">*</span></label>
-		<input name="user_name" value="" placeholder="Your User Name" required>
-		<br/>
-		<label for="user_password">Password:<span class="required">*</span></label>
-		<input name="user_password" value="" type="password" placeholder="Password" required>
-		<br/>
-		<br/>
-		<label for="blog_title">Blog Title:</label>
-		<input name="blog_title" value="" placeholder="HTMLy">
-		<br/>
-		<label for="blog_tagline">Blog Tagline:</label>
-		<input name="blog_tagline" value="" placeholder="Just another HTMLy blog">
-		<br/>
-		<label for="blog_description">Blog Description:</label>
-		<input name="blog_description" value="" placeholder="Proudly powered by HTMLy, a databaseless blogging platform.">
-		<br/>
-		<label for="blog_copyright">Blog Copyright:</label>
-		<input name="blog_copyright" value="" placeholder="(c) Your name.">
-		<br/>
-		<br/>
-		<label for="social_twitter">Twitter Link:</label>
-		<input name="social_twitter" type="url" value="" placeholder="https://twitter.com">
-		<br/>
-		<label for="social_facebook">Facebook Link:</label>
-		<input name="social_facebook" type="url" value="" placeholder="https://www.facebook.com">
-		<br/>
-		<label for="social_google">Google+ Link:</label>
-		<input name="social_google" type="url" value="" placeholder="https://plus.google.com">
-		<br/>
-		<label for="social_tumblr">Tumblr Link:</label>
-		<input name="social_tumblr" type="url" value="" placeholder="https://www.tumblr.com">
-		<br/>
-		<br/>
-		<label for="comment_system">Comment System:</label>
-		<select name="comment_system" onchange="checkIfOther();" id="comment.system">
-		   <option value="disable">disable</option>
-		   <option value="facebook">facebook</option>
-		   <option value="disqus">disqus</option>
-        </select>
-		<div id="facebook" style="display:none">
-			<br/>
-			<label for="fb_appid">Facebook AppId:</label>
-			<input name="fb_appid" value="" placeholder="facebook AppId">
-		</div>
-		<div id="disqus" style="display:none">
-			<br/>
-			<label for="disqus_shortname">Disqus Shortname:</label>
-			<input name="disqus_shortname" value="" placeholder="disqus shortname">
-		</div>
-		<br/><input type="submit" value="Install via Tool">
-	</form>
-	<script>
-function checkIfOther(){
-	a = document.getElementById("comment.system");
-	if(a.value == "facebook")
-		document.getElementById("facebook").setAttribute("style","display:inline");
-	else
-		document.getElementById("facebook").setAttribute("style","display:none");
-	if(a.value == "disqus")
-		document.getElementById("disqus").setAttribute("style","display:inline");
-	else
-		document.getElementById("disqus").setAttribute("style","display:none");
-	return a.value;
+<form method="POST">
+        <label for="user_name">Username:<span class="required">*</span></label>
+        <input name="user_name" value="" placeholder="Your User Name" required>
+        <br/>
+        <label for="user_password">Password:<span class="required">*</span></label>
+        <input name="user_password" value="" type="password" placeholder="Password" required>
+        <br/>
+        <br/>
+        <label for="blog_title">Blog Title:</label>
+        <input name="blog_title" value="" placeholder="HTMLy">
+        <br/>
+        <label for="blog_tagline">Blog Tagline:</label>
+        <input name="blog_tagline" value="" placeholder="Just another HTMLy blog">
+        <br/>
+        <label for="blog_description">Blog Description:</label>
+        <input name="blog_description" value="" placeholder="Proudly powered by HTMLy, a databaseless blogging platform.">
+        <br/>
+        <label for="blog_copyright">Blog Copyright:</label>
+        <input name="blog_copyright" value="" placeholder="(c) Your name.">
+        <br/>
+        <br/>
+        <label for="social_twitter">Twitter Link:</label>
+        <input name="social_twitter" type="url" value="" placeholder="https://twitter.com">
+        <br/>
+        <label for="social_facebook">Facebook Link:</label>
+        <input name="social_facebook" type="url" value="" placeholder="https://www.facebook.com">
+        <br/>
+        <label for="social_google">Google+ Link:</label>
+        <input name="social_google" type="url" value="" placeholder="https://plus.google.com">
+        <br/>
+        <label for="social_tumblr">Tumblr Link:</label>
+        <input name="social_tumblr" type="url" value="" placeholder="https://www.tumblr.com">
+        <br/>
+        <br/>
+        <label for="comment_system">Comment System:</label>
+        <select name="comment_system" onchange="checkCommentSystemSelection();" id="comment.system">
+           <option value="disable">disable</option>
+           <option value="facebook">facebook</option>
+           <option value="disqus">disqus</option>
+</select>
+        <div id="facebook" style="display:none">
+                <br/>
+                <label for="fb_appid">Facebook AppId:</label>
+                <input name="fb_appid" value="" placeholder="facebook AppId">
+        </div>
+        <div id="disqus" style="display:none">
+                <br/>
+                <label for="disqus_shortname">Disqus Shortname:</label>
+                <input name="disqus_shortname" value="" placeholder="disqus shortname">
+        </div>
+        <br/><input type="submit" value="Install via Tool">
+</form>
+<script>
+function checkCommentSystemSelection(){
+    a = document.getElementById("comment.system");
+    if(a.value == "facebook")
+            document.getElementById("facebook").setAttribute("style","display:inline");
+    else
+            document.getElementById("facebook").setAttribute("style","display:none");
+    if(a.value == "disqus")
+            document.getElementById("disqus").setAttribute("style","display:inline");
+    else
+            document.getElementById("disqus").setAttribute("style","display:none");
+    return a.value;
 }
-	</script>
-</html>
-EOT;
-    }
-
-    protected function standardConfig() { //EOT
-        return <<<EOT
-; The URL of your blog. Include the http or https.
-site.url = ""
-
-; Blog info
-blog.title = "HTMLy"
-blog.tagline = "Just another HTMLy blog"
-blog.description = "Proudly powered by HTMLy, a databaseless blogging platform."
-blog.copyright = "(c) Your name."
-
-; Social account
-social.twitter = "https://twitter.com"
-social.facebook = "https://www.facebook.com"
-social.google = "https://plus.google.com"
-social.tumblr = "http://www.tumblr.com"
-
-; Custom menu link.
-; See example below:
-; "Google->http://www.google.com|Wikipedia->http://www.wikipedia.org". 
-blog.menu = ""
-
-; Breadcrumb home text. Useful when installed on subfolder.
-breadcrumb.home = "Home"
-
-; Comment system. Choose "facebook", "disqus", or "disable".
-comment.system = "disable"
-
-;Facebook comments
-fb.appid = ""
-fb.num = "5"
-fb.color = "light"
-
-; Disqus comments
-disqus.shortname = ""
-
-; Google+ publisher
-google.publisher = ""
-
-; Google analytics
-google.analytics.id = ""
-
-; Pagination, RSS, and JSON
-posts.perpage = "5"
-tag.perpage = "10"
-archive.perpage = "10"
-search.perpage = "10"
-profile.perpage = "10"
-json.count = "10"
-
-; Related posts
-related.count = "4"
-
-; Author info on blog post. Set "true" or "false".
-author.info = "true"
-
-; Teaser type: set "trimmed" or "full".
-teaser.type = "trimmed"
-
-; Teaser char count
-teaser.char = "200"
-
-; Description char count
-description.char = "150"
-
-;RSS feed count
-rss.count = "10"
-
-;RSS feed description length. If left empty we will use full page.
-rss.char = ""
-
-; Enable image thumbnail on teaser, the options is "true" and "false". If set to "true", you can specify the default thumbnail also.
-img.thumbnail = "true"
-default.thumbnail = ""
-
-;Enable or disable jQuery, if Lightbox is "on" then this option ignored.
-jquery = "disable"
-
-; Lightbox inline image handling. This can slowdown your page load, especially when Disqus enabled. "on" or "off".
-lightbox = "off"
-
-; Set the theme here
-views.root = "themes/logs"
-
-; Framework config. No need to edit.
-views.layout = "layout"
-EOT;
-    }
-
-    protected function standardUser() { //EOT
-        return <<<EOT
-;Password
-password = yourpassword
-
-;Role
-role = admin
+</script>
 EOT;
     }
 
@@ -331,15 +231,6 @@ EOT;
         return $array;
     }
 
-    protected function generateINI($data, $seperator = null) {
-        $lb = "\n"; //linebreak
-        $string = ";INI File" . $lb;
-        foreach ($data as $name => $value) {
-            $string .= $name . ' = ' . $seperator . $value . $seperator . $lb;
-        }
-        return $string;
-    }
-
     protected function generateSiteUrl() {
         $method = 'http';
         if (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS']) {
@@ -352,23 +243,27 @@ EOT;
         $this->siteUrl = $method . '://' . $_SERVER['SERVER_NAME'] . $dir . '/';
     }
 
+    protected function overwriteINI($data, $string) {
+        foreach ($data as $word => $value) {
+            $string = preg_replace("/^" . $word . " = .+$/m", $word . ' = "' . $value . '"', $string);
+        }
+        return $string;
+    }
+
     protected function saveConfigs() {
-        $standardConfig = parse_ini_string($this->standardConfig());
         $this->extractUser();
         $config = array("site.url" => $this->siteUrl);
         $config += $this->convertRequestToConfig();
-        $config += $standardConfig;
-        $dir = "config/";
-        if (!file_exists($dir))
-            mkdir($dir);
-        file_put_contents($dir . "config.ini", $this->generateINI($config, '"'));
-        $userDir = $dir . "users/";
-        if (!file_exists($userDir))
-            mkdir($userDir);
-        file_put_contents($userDir . $this->user . ".ini", $this->generateINI(array(
-                    'password' => $this->userPassword,
-                    'role' => 'admin',
-        )));
+        $configFile = file_get_contents("config/config.ini.example");
+        $configFile = $this->overwriteINI($config, $configFile);
+        file_put_contents("config/config.ini", $configFile);
+        
+        $userFile = file_get_contents("config/users/username.ini.example");
+        $userFile = $this->overwriteINI(array(
+            "password" => $this->userPassword,
+            'role' => 'admin',
+        ), $userFile);
+        file_put_contents("config/users/" . $this->user . ".ini", $userFile);
     }
 
     protected function testTheEnvironment() {
@@ -412,8 +307,8 @@ EOT;
 
     protected function runForm() {
         if (from($_REQUEST, 'user_name') && from($_REQUEST, 'user_password')) {
-            $this->saveConfigs();
             $this->install();
+            $this->saveConfigs();
             $_SESSION[$this->siteUrl]["user"] = $this->user;
             return true;
         } else {

@@ -3923,7 +3923,7 @@ TZVHO8mvbaG0weyJ9rQPOLXiZNwlz6bb65pcmaHFCN795trV1lpFDMS3wrUU77QR/w4VtfX128a9
                     'header' => "User-Agent: Awesome-Update-My-Self\r\n"
                 ),
                 'ssl' => array(
-                    'cafile' => dirname(__FILE__) . '/../../cache/ca_bundle.crt',
+                    'cafile' => dirname(__FILE__) . '/cache/ca_bundle.crt',
                     'verify_peer' => true
                 )
             )
