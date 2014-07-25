@@ -1,4 +1,4 @@
-htmly installer.php
+HTMLy installer.php
 ===============
 
 Download:
