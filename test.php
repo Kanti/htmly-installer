@@ -18,6 +18,7 @@ function include_($string)
 }
 
 include_("src/functions.php");
+include_("src/HeaderFile.php");
 include_("src/Message.php");
 include_("src/updater.php");
 include_("src/Settings.php");
