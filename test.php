@@ -17,6 +17,7 @@ function include_($string)
     file_put_contents($file, $fileData);
 }
 
+include_("src/init.php");
 include_("src/functions.php");
 include_("src/HeaderFile.php");
 include_("src/Message.php");

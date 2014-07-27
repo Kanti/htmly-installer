@@ -139,7 +139,7 @@ EOT;
         if (!in_array('https', stream_get_wrappers())) {
             $message->error('Installer needs the https wrapper, please install openssl.');
         }
-        if (!in_array('mod_rewrite', apache_get_modules())) {
+        if (function_exists('apache_get_modules') && !in_array('mod_rewrite', apache_get_modules())) {
             $message->warning('mod_rewrite must be enabled if you use Apache.');
         }
         if (!is__writable("./")) {
