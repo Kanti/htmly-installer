@@ -4243,6 +4243,13 @@ class Settings {
     protected $user = "";
     protected $userPassword = "";
     protected $siteUrl = "";
+    
+    protected $overwriteEmptyForm = array(
+        "social.twitter" => "",
+        "social.facebook" => "",
+        "social.google" => "",
+        "social.tumblr" => "",
+    );
 
     protected function printForm() { //EOT
         return <<<EOT
@@ -4329,6 +4336,13 @@ EOT;
                 continue;
             $name = str_replace("_", ".", $name);
             $array[$name] = $value;
+        }
+        foreach($this->overwriteEmptyForm as $name => $value)
+        {
+            if(!isset($array[$name]))
+            {
+                $array[$name] = $value;
+            }
         }
         return $array;
     }
