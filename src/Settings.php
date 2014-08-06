@@ -59,17 +59,31 @@ class Settings {
 
     protected function saveConfigs() {
         $this->extractUser();
+        //save config.ini
         $config = array("site.url" => $this->siteUrl);
         $config += $this->convertRequestToConfig();
         $configFile = file_get_contents("config/config.ini.example");
         $configFile = $this->overwriteINI($config, $configFile);
         file_put_contents("config/config.ini", $configFile);
         
+        //save users/[Username].ini
         $userFile = file_get_contents("config/users/username.ini.example");
-        $userFile = $this->overwriteINI(array(
-            "password" => $this->userPassword,
-            'role' => 'admin',
-        ), $userFile);
+        $parsed = parse_ini_string($userFile);
+        if(isset($parsed['encryption']))
+        {
+            $userFile = $this->overwriteINI(array(
+                'encryption' => 'sha512',
+                'password' => hash('sha512', $this->userPassword),
+                'role' => 'admin',
+            ), $userFile);
+        }
+        else
+        {
+            $userFile = $this->overwriteINI(array(
+                "password" => $this->userPassword,
+                'role' => 'admin',
+            ), $userFile);
+        }
         file_put_contents("config/users/" . $this->user . ".ini", $userFile);
     }
 
