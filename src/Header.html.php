@@ -129,7 +129,7 @@ span.required {
                     <?php if($version !== null):?><a href="<?php echo $version['html_url']; ?>"> HTMLy <small>/<?php echo $version['tag_name']; ?>/</a></small><?php else: ?>HTMLy<?php endif;?>
                 </h1>
                 <div id="blog-tagline">
-                    <p>the HTMLy Installer Tool <small> /v1.1.4/</small></p>
+                    <p>the HTMLy Installer Tool <small> /v1.1.5/</small></p>
                 </div>
             </div>
         </header>
