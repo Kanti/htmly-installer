@@ -1,6 +1,4 @@
-<?php
-function printHeader() { //EOT
-        return <<<EOT
+<?php function printHeader() { if(true):?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -132,7 +130,4 @@ span.required {
 </div>
 <div id="main-wrapper">
 	<div id="main" class="responsive">
-EOT;
-}
-
-?>
+<?php endif; }?>
