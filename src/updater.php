@@ -37,9 +37,9 @@ class Updater {
     protected $zipFile = "cache/tmpZipFile.zip";
     protected $infos = array();
     protected $context = null;
-    
-    protected function genCaFile(){
-        if(file_exists("cache/ca_bundle.crt"))
+
+    protected function genCaFile() {
+        if (file_exists("cache/ca_bundle.crt"))
             return 1;
         //https://github.com/bagder/ca-bundle
         file_put_contents("cache/ca_bundle.crt", "##
@@ -3916,22 +3916,22 @@ TZVHO8mvbaG0weyJ9rQPOLXiZNwlz6bb65pcmaHFCN795trV1lpFDMS3wrUU77QR/w4VtfX128a9
         }
         $this->genCaFile();
         $this->cachedInfo = new CacheOneFile($this->cachedInfo);
-        
+
         $this->context = stream_context_create(
-            array(
-                'http' => array(
-                    'header' => "User-Agent: Awesome-Update-My-Self\r\n"
-                ),
-                'ssl' => array(
-                    'cafile' => dirname(__FILE__) . '/cache/ca_bundle.crt',
-                    'verify_peer' => true
+                array(
+                    'http' => array(
+                        'header' => "User-Agent: Awesome-Update-My-Self\r\n"
+                    ),
+                    'ssl' => array(
+                        'cafile' => dirname(__FILE__) . '/cache/ca_bundle.crt',
+                        'verify_peer' => true
+                    )
                 )
-            )
         );
-        $this->infos = $this->getInfos();
+        $this->infos = $this->getRemoteInfos();
     }
 
-    protected function getInfos() {
+    protected function getRemoteInfos() {
         $path = "https://api.github.com/repos/danpros/htmly/releases";
         if ($this->cachedInfo->is()) {
             $fileContent = $this->cachedInfo->get();
@@ -3987,7 +3987,7 @@ TZVHO8mvbaG0weyJ9rQPOLXiZNwlz6bb65pcmaHFCN795trV1lpFDMS3wrUU77QR/w4VtfX128a9
     }
 
     protected function download($url) {
-        $file = @fopen($url, 'r', false , $this->context);
+        $file = @fopen($url, 'r', false, $this->context);
         if ($file == false)
             return false;
         file_put_contents($this->zipFile, $file);
@@ -4028,7 +4028,12 @@ TZVHO8mvbaG0weyJ9rQPOLXiZNwlz6bb65pcmaHFCN795trV1lpFDMS3wrUU77QR/w4VtfX128a9
     }
 
     public function getName() {
+        var_dump($this->infos[0]);
         return $this->infos[0]['tag_name'];
+    }
+    
+    public function getInfos(){
+        return $this->infos[0];
     }
 
 }

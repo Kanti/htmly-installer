@@ -105,7 +105,9 @@ class Settings {
             header("Location:" . $this->siteUrl . "add/post");
             exit();
         } else {
-            printHeader();
+            $updater = new Updater;
+            $version = $updater->getInfos();
+            printHeader($version);
             printForm();
             echo "</body>";
             echo "</html>";
