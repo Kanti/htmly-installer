@@ -162,10 +162,10 @@ span.required {
         <header id="header" class="responsive">
             <div id="branding">
                 <h1>
-                    <?php if($version !== null):?><a href="<?php echo $version['html_url']; ?>"> HTMLy <small>/<?php echo $version['tag_name']; ?>/</a></small><?php else: ?>HTMLy<?php endif;?>
+                    <?php if($version !== null):?><a href="<?php echo $version['html_url']; ?>" target="_blank"> HTMLy <small>/<?php echo $version['tag_name']; ?>/</a></small><?php else: ?>HTMLy<?php endif;?>
                 </h1>
                 <div id="blog-tagline">
-                    <p>the HTMLy Installer Tool <small> /v1.1.4/</small></p>
+                    <p>the HTMLy Installer Tool <small> /v1.1.5/</small></p>
                 </div>
             </div>
         </header>
@@ -240,7 +240,47 @@ function checkCommentSystemSelection(){
     return a.value;
 }
 </script>
-<?php endif; } ?><?php
+<?php endif; } ?><?php function htaccess(){ return <<<EOT
+# Don't show directory listings for URLs which map to a directory.
+Options -Indexes
+
+# Follow symbolic links in this directory.
+Options +FollowSymLinks
+
+# Make HTMLy handle any 404 errors.
+ErrorDocument 404 /index.php
+
+# Set the default handler.
+DirectoryIndex index.php index.html index.htm
+
+# Requires mod_expires to be enabled.
+
+# Various rewrite rules.
+<IfModule mod_rewrite.c>
+
+  RewriteEngine on
+
+# Uncomment the following to redirect all visitors to the www version
+# RewriteCond %{HTTP_HOST} !^www\. [NC]
+# RewriteRule ^ http://www.%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+# Uncomment the following to redirect all visitors to non www version
+# RewriteCond %{HTTP_HOST} ^www\.(.+)$ [NC]
+# RewriteRule ^ http://%1%{REQUEST_URI} [L,R=301]
+
+# If your site is running in a VirtualDocumentRoot at http://example.com/,
+# uncomment the following line:
+# RewriteBase /
+
+# Pass all requests not referring directly to files in the filesystem to index.php.
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteCond %{REQUEST_FILENAME} !-d 
+  RewriteRule ^ index.php [L]
+
+</IfModule>
+EOT;
+}
+?><?php
 class Message {
 
     protected $errors = array();
@@ -4418,9 +4458,10 @@ class Settings {
     }
 
     public function __construct() {
-        $this->generateSiteUrl();
-
         $message = $this->testTheEnvironment();
+        file_put_contents(".htaccess", htaccess());
+        
+        $this->generateSiteUrl();
         if (!empty($message)) {
             printHeader();
             echo $message;

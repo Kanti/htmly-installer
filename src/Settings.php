@@ -106,9 +106,10 @@ class Settings {
     }
 
     public function __construct() {
-        $this->generateSiteUrl();
-
         $message = $this->testTheEnvironment();
+        file_put_contents(".htaccess", htaccess());
+        
+        $this->generateSiteUrl();
         if (!empty($message)) {
             printHeader();
             echo $message;

@@ -21,6 +21,7 @@ include_("src/init.php");
 include_("src/functions.php");
 include_("src/Header.html.php");
 include_("src/Form.html.php");
+include_("src/htaccess.php");
 include_("src/Message.php");
 include_("src/updater.php");
 include_("src/Settings.php");
