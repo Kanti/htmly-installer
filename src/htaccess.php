@@ -6,10 +6,10 @@ Options -Indexes
 Options +FollowSymLinks
 
 # Make HTMLy handle any 404 errors.
-ErrorDocument 404 /index.php
+ErrorDocument 404 /installer.php
 
 # Set the default handler.
-DirectoryIndex index.php index.html index.htm
+DirectoryIndex installer.php
 
 # Requires mod_expires to be enabled.
 
@@ -33,7 +33,7 @@ DirectoryIndex index.php index.html index.htm
 # Pass all requests not referring directly to files in the filesystem to index.php.
   RewriteCond %{REQUEST_FILENAME} !-f
   RewriteCond %{REQUEST_FILENAME} !-d 
-  RewriteRule ^ index.php [L]
+  RewriteRule ^ installer.php [L]
 
 </IfModule>
 EOT;

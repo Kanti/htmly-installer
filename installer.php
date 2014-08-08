@@ -165,7 +165,7 @@ span.required {
                     <?php if($version !== null):?><a href="<?php echo $version['html_url']; ?>" target="_blank"> HTMLy <small>/<?php echo $version['tag_name']; ?>/</a></small><?php else: ?>HTMLy<?php endif;?>
                 </h1>
                 <div id="blog-tagline">
-                    <p>the HTMLy Installer Tool <small> /v1.1.5/</small></p>
+                    <p>the HTMLy Installer Tool <small> /v1.2/</small></p>
                 </div>
             </div>
         </header>
@@ -173,6 +173,31 @@ span.required {
 </div>
 <div id="main-wrapper">
     <div id="main" class="responsive">
+        <p id="rewriteRule" style="display:none;" class="warning">Your rewriteRule is not ready to use. <a href="https://github.com/danpros/htmly#lighttpd" target="_blank">Help!</a></p><br/>
+        <script>
+function testRewriteRule()
+{
+    var xmlhttp;
+    if (window.XMLHttpRequest)
+    {// code for IE7+, Firefox, Chrome, Opera, Safari
+        xmlhttp = new XMLHttpRequest();
+    }
+    else
+    {// code for IE6, IE5
+        xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+    }
+    xmlhttp.onreadystatechange = function()
+    {
+        if (xmlhttp.readyState == 4 && xmlhttp.status != 200)
+        {
+            document.getElementById("rewriteRule").style.display = "block";
+        }
+    }
+    xmlhttp.open("GET","rewriteTest.html",true);
+    xmlhttp.send();
+}
+testRewriteRule();
+        </script>
 <?php endif; }?><?php function printForm() { if(true):?>
 <form method="POST">
         <label for="user_name">Username:<span class="required">*</span></label>
@@ -248,10 +273,10 @@ Options -Indexes
 Options +FollowSymLinks
 
 # Make HTMLy handle any 404 errors.
-ErrorDocument 404 /index.php
+ErrorDocument 404 /installer.php
 
 # Set the default handler.
-DirectoryIndex index.php index.html index.htm
+DirectoryIndex installer.php
 
 # Requires mod_expires to be enabled.
 
@@ -275,7 +300,7 @@ DirectoryIndex index.php index.html index.htm
 # Pass all requests not referring directly to files in the filesystem to index.php.
   RewriteCond %{REQUEST_FILENAME} !-f
   RewriteCond %{REQUEST_FILENAME} !-d 
-  RewriteRule ^ index.php [L]
+  RewriteRule ^ installer.php [L]
 
 </IfModule>
 EOT;
@@ -4499,5 +4524,10 @@ class Settings {
     }
 }
 ?><?php
+if(from($_SERVER,'QUERY_STRING') == "rewriteRule.html")
+{
+    echo "YES!";
+    die();
+}
 session_start();
 new Settings;
