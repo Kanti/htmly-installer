@@ -107,7 +107,10 @@ class Settings {
 
     public function __construct() {
         $message = $this->testTheEnvironment();
-        file_put_contents(".htaccess", htaccess());
+        if(! file_exists(".htaccess"))
+        {
+            file_put_contents(".htaccess", htaccess());
+        }
         
         $this->generateSiteUrl();
         if (!empty($message)) {
