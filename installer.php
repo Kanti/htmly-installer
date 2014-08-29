@@ -4416,15 +4416,11 @@ class Settings {
     }
 
     protected function generateSiteUrl() {
-        $method = 'http';
-        if (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS']) {
-            $method = 'https';
-        }
         $dir = dirname(substr($_SERVER["SCRIPT_FILENAME"], strlen($_SERVER["DOCUMENT_ROOT"])));
         if ($dir == '.' || $dir == '..') {
             $dir = '';
         }
-        $this->siteUrl = $method . '://' . $_SERVER['SERVER_NAME'] . $dir . '/';
+        $this->siteUrl = '//' . $_SERVER['SERVER_NAME'] . $dir . '/';
     }
 
     protected function overwriteINI($data, $string) {
