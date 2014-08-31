@@ -4420,7 +4420,7 @@ class Settings {
         if ($dir == '.' || $dir == '..') {
             $dir = '';
         }
-        $this->siteUrl = '//' . $_SERVER['SERVER_NAME'] . $dir . '/';
+        $this->siteUrl = '//' . rtrim($_SERVER['SERVER_NAME'],"/") . "/" . trim($dir,"/") . '/';
     }
 
     protected function overwriteINI($data, $string) {
