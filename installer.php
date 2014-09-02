@@ -4480,7 +4480,7 @@ class Settings {
 
     public function __construct() {
         $message = $this->testTheEnvironment();
-        if(! file_exists(".htaccess"))
+        if(is__writable("./") && !file_exists(".htaccess"))
         {
             file_put_contents(".htaccess", htaccess());
         }
