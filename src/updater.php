@@ -4026,13 +4026,10 @@ TZVHO8mvbaG0weyJ9rQPOLXiZNwlz6bb65pcmaHFCN795trV1lpFDMS3wrUU77QR/w4VtfX128a9
         $string .= "<p>" . $releases[0]['body'] . "</p>\n";
         return $string;
     }
-
-    public function getName() {
-        var_dump($this->infos[0]);
-        return $this->infos[0]['tag_name'];
-    }
     
     public function getInfos(){
+        if(empty($this->infos))
+            return null;
         return $this->infos[0];
     }
 
