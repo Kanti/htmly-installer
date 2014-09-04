@@ -42,10 +42,14 @@ class Settings {
         $dir = dirname(substr($_SERVER["SCRIPT_FILENAME"], strlen($_SERVER["DOCUMENT_ROOT"])));
         if ($dir == '.' || $dir == '..') {
             $dir = '';
+        }
+        $dir = trim($dir,'/');
+        if($dir === '')
+        {
             $this->siteUrl = '//' . trim($_SERVER['SERVER_NAME'],"/") . "/";
             return;
         }
-        $this->siteUrl = '//' . trim($_SERVER['SERVER_NAME'],"/") . "/" . trim($dir,"/") . '/';
+        $this->siteUrl = '//' . trim($_SERVER['SERVER_NAME'],"/") . "/" . $dir . '/';
     }
 
     protected function overwriteINI($data, $string) {
