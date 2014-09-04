@@ -4021,7 +4021,7 @@ TZVHO8mvbaG0weyJ9rQPOLXiZNwlz6bb65pcmaHFCN795trV1lpFDMS3wrUU77QR/w4VtfX128a9
 
     public function printOne() {
         $releases = $this->infos;
-        $string = "<h3>Updated to<h3>";
+        $string = "<h3>Updated to<h3>\n";
         $string .= "<h2>[" . $releases[0]['tag_name'] . "] " . $releases[0]['name'] . "</h2>\n";
         $string .= "<p>" . $releases[0]['body'] . "</p>\n";
         return $string;

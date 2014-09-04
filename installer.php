@@ -165,7 +165,7 @@ span.required {
                     <?php if($version !== null):?><a href="<?php echo $version['html_url']; ?>" target="_blank"> HTMLy <small>/<?php echo $version['tag_name']; ?>/</a></small><?php else: ?>HTMLy<?php endif;?>
                 </h1>
                 <div id="blog-tagline">
-                    <p>the HTMLy Installer Tool <small> /v1.2.3/</small></p>
+                    <p>the HTMLy Installer Tool <small> /v1.2.4/</small></p>
                 </div>
             </div>
         </header>
@@ -4359,7 +4359,7 @@ TZVHO8mvbaG0weyJ9rQPOLXiZNwlz6bb65pcmaHFCN795trV1lpFDMS3wrUU77QR/w4VtfX128a9
 
     public function printOne() {
         $releases = $this->infos;
-        $string = "<h3>Updated to<h3>";
+        $string = "<h3>Updated to<h3>\n";
         $string .= "<h2>[" . $releases[0]['tag_name'] . "] " . $releases[0]['name'] . "</h2>\n";
         $string .= "<p>" . $releases[0]['body'] . "</p>\n";
         return $string;
@@ -4416,8 +4416,10 @@ class Settings {
         $dir = dirname(substr($_SERVER["SCRIPT_FILENAME"], strlen($_SERVER["DOCUMENT_ROOT"])));
         if ($dir == '.' || $dir == '..') {
             $dir = '';
+            $this->siteUrl = '//' . trim($_SERVER['SERVER_NAME'],"/") . "/";
+            return;
         }
-        $this->siteUrl = '//' . rtrim($_SERVER['SERVER_NAME'],"/") . "/" . trim($dir,"/") . '/';
+        $this->siteUrl = '//' . trim($_SERVER['SERVER_NAME'],"/") . "/" . trim($dir,"/") . '/';
     }
 
     protected function overwriteINI($data, $string) {
