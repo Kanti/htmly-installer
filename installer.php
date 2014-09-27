@@ -165,7 +165,7 @@ span.required {
                     <?php if($version !== null):?><a href="<?php echo $version['html_url']; ?>" target="_blank"> HTMLy <small>/<?php echo $version['tag_name']; ?>/</a></small><?php else: ?>HTMLy<?php endif;?>
                 </h1>
                 <div id="blog-tagline">
-                    <p>the HTMLy Installer Tool <small> /v1.2.4/</small></p>
+                    <p>the HTMLy Installer Tool <small> /v1.2.5/</small></p>
                 </div>
             </div>
         </header>
@@ -4436,7 +4436,10 @@ class Settings {
     protected function saveConfigs() {
         $this->extractUser();
         //save config.ini
-        $config = array("site.url" => $this->siteUrl);
+        $config = array(
+            "site.url" => $this->siteUrl,
+            "timezone" => $this->getTimeZone(),
+        );
         $config += $this->convertRequestToConfig();
         $configFile = file_get_contents("config/config.ini.example");
         $configFile = $this->overwriteINI($config, $configFile);
@@ -4506,6 +4509,23 @@ class Settings {
             echo "</body>";
             echo "</html>";
         }
+    }
+    
+    protected function getTimeZone()
+    {
+        static $ip;
+        if(empty($ip))
+        {
+            $ip = @file_get_contents("http://ipecho.net/plain");
+            if(!is_string($ip))
+            {
+                $ip = $_SERVER['REMOTE_ADDR'];
+            }
+        }
+        $json = @json_decode(@file_get_contents("http://ip-api.com/json/" . $ip),true);
+        if(isset($json['timezone']))
+            return $json['timezone'];
+        return 'Europe/Berlin';
     }
 
     protected function runForm() {
