@@ -1,0 +1,57 @@
+{
+    "_readme": [
+        "This file locks the dependencies of your project to a known state",
+        "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "This file is @generated automatically"
+    ],
+    "hash": "960e92687eaf96a1d0428c3deb9c08b9",
+    "packages": [
+        {
+            "name": "kanti/hub-updater",
+            "version": "v0.2-alpha2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Kanti/hub-updater.git",
+                "reference": "ca8c58dad87aaa999e8a990444841399fd3d6d97"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Kanti/hub-updater/zipball/ca8c58dad87aaa999e8a990444841399fd3d6d97",
+                "reference": "ca8c58dad87aaa999e8a990444841399fd3d6d97",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Kanti\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "GPL-2.0"
+            ],
+            "authors": [
+                {
+                    "name": "Kanti",
+                    "email": "git@kanti.de",
+                    "homepage": "https://kanti.de",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Simple Github Updater for Web Projects",
+            "time": "2014-11-25 07:27:39"
+        }
+    ],
+    "packages-dev": [],
+    "aliases": [],
+    "minimum-stability": "stable",
+    "stability-flags": {
+        "kanti/hub-updater": 15
+    },
+    "prefer-stable": false,
+    "platform": [],
+    "platform-dev": []
+}
