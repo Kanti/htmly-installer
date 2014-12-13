@@ -1,5 +1,5 @@
 {
     "require": {
-        "kanti/hub-updater": "0.2-alpha2"
+        "kanti/hub-updater": "~0.3"
     }
 }

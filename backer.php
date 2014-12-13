@@ -38,11 +38,19 @@ class Backer {
 		$this->addFile("vendor/kanti/hub-updater/HubUpdater.php")
 			->addFile("vendor/kanti/hub-updater/HelperClass.php")
 			->addFile("vendor/kanti/hub-updater/CacheOneFile.php")
-			->addFile("vendor/kanti/hub-updater/ca_bundle.crt");            
+			->addFile("vendor/kanti/hub-updater/ca_bundle.crt");
 
-		$this->addFile("index.php")
-			->addFile("backer.php");
-	
+        $this->addFile("index.php")
+            ->addFile("backer.php");
+
+        /*
+        $this->addFile("old/src/Form.html.php")
+            ->addFile("old/src/Header.html.php")
+            ->addFile("old/src/functions.php")
+            ->addFile("old/src/htaccess.php")
+            ->addFile("old/src/Message.php")
+            ->addFile("old/src/Settings.php");
+	    */
 	}
 	
 	public function run() {

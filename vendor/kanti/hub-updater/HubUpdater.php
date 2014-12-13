@@ -6,6 +6,8 @@ class HubUpdater
 {
     protected $options = array(
         "cacheFile" => "downloadInfo.json",
+        "holdTime" => 43200,
+
         "versionFile" => "installedVersion.json",
         "zipFile" => "tmpZipFile.zip",
         "updateignore" => ".updateignore",
@@ -24,7 +26,7 @@ class HubUpdater
 
     public function __construct($option)
     {
-		//option Verarbeitung
+		//options
         if (is_array($option)) {
             if (! isset($option['name'])) {
                 throw new \Exception('No Name in Option Set');
@@ -58,13 +60,12 @@ class HubUpdater
             }
 		}
 
-        $this->cachedInfo = new CacheOneFile($this->options['cache'] . $this->options['cacheFile']);
+        $this->cachedInfo = new CacheOneFile(dirname($_SERVER["SCRIPT_FILENAME"]) . "/" . $this->options['cache'] . $this->options['cacheFile'],$this->options['holdTime']);
 
         $this->streamContext = stream_context_create(
             array(
                 'http' => array(
-                    'header' => "User-Agent: Awesome-Update-My-Self-" . $this->options['name'] . "\r\n
-                                 Accept: application/vnd.github.v3+json",
+                    'header' => "User-Agent: Awesome-Update-My-Self-" . $this->options['name'] . "\r\nAccept: application/vnd.github.v3+json\r\n",
                 ),
                 'ssl' => array(
                     'cafile' => $caBundleDir . '/ca_bundle.crt',
@@ -111,12 +112,17 @@ class HubUpdater
             $json = json_decode($fileContent, true);
             if (isset($json['message'])) {
 				if($this->options["exceptions"]){
-					throw new \Exception("API Exception");
+					throw new \Exception("API Exception[" . $json['message'] . "]");
 				} else {
 					$json = array();
 				}
             }
-            $fileContent = json_encode($json, JSON_PRETTY_PRINT);
+            if(defined("JSON_PRETTY_PRINT"))
+            {
+                $fileContent = json_encode($json, JSON_PRETTY_PRINT);
+            } else {
+                $fileContent = json_encode($json);
+            }
             $this->cachedInfo->set($fileContent);
 
             return $json;
@@ -153,14 +159,22 @@ class HubUpdater
 
     public function update()
     {
+		$newestRelease = $this->getNewestInfo();
         if ($this->able()) {
-            if ($this->download($this->newestRelease['zipball_url'])) {
+            if ($this->download($newestRelease['zipball_url'])) {
                 if ($this->unZip()) {
                     unlink($this->options['cache'] . $this->options['zipFile']);
-                    file_put_contents($this->options['cache'] . $this->options['versionFile'], json_encode(array(
-                        "id" => $this->newestRelease['id'],
-                        "tag_name" => $this->newestRelease['tag_name']
-                                    ), JSON_PRETTY_PRINT));
+                    if(defined("JSON_PRETTY_PRINT")) {
+                        file_put_contents($this->options['cache'] . $this->options['versionFile'], json_encode(array(
+                            "id" => $newestRelease['id'],
+                            "tag_name" => $newestRelease['tag_name']
+                        ), JSON_PRETTY_PRINT));
+                    } else {
+                        file_put_contents($this->options['cache'] . $this->options['versionFile'], json_encode(array(
+                            "id" => $newestRelease['id'],
+                            "tag_name" => $newestRelease['tag_name']
+                        )));
+                    }
 
                     return true;
                 }

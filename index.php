@@ -8,21 +8,13 @@ if(require_once "backer.php")//new Backed?
 	exit;
 }
 
-$updater = new Kanti\HubUpdater(array(
-        "cacheFile" => "downloadInfo.json",
-        "versionFile" => "installedVersion.json",
-        "zipFile" => "tmpZipFile.zip",
-        "updateignore" => ".updateignore",
+error_reporting(E_ALL);
+ini_set("display_errors", 1);
 
-        "name" => "kanti/test",
-        "branch" => "master",
-        "cache" => "cache/",
-        "save" => "save/",
-        "prerelease" => false,
-		
-		"internetException" => false,
-    ));
-	
-	
+$updater = new Kanti\HubUpdater(array(
+    "name" => "danpros/htmly",
+    "cache" => "cache/",
+    "save" => "save/",
+));
+
 var_dump($updater->able());
-var_dump($updater);
