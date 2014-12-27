@@ -165,7 +165,7 @@ span.required {
                     <?php if($version !== null):?><a href="<?php echo $version['html_url']; ?>" target="_blank"> HTMLy <small>/<?php echo $version['tag_name']; ?>/</a></small><?php else: ?>HTMLy<?php endif;?>
                 </h1>
                 <div id="blog-tagline">
-                    <p>the HTMLy Installer Tool <small> /v1.2.6/</small></p>
+                    <p>the HTMLy Installer Tool <small> /v1.2.7/</small></p>
                 </div>
             </div>
         </header>
@@ -4311,7 +4311,7 @@ kI26oQ==
                 return array();
             }
             $json = json_decode($fileContent, true);
-            $fileContent = json_encode($json, JSON_PRETTY_PRINT);
+            $fileContent = json_encode($json);
             $this->cachedInfo->set($fileContent);
             return $json;
         }
@@ -4344,7 +4344,7 @@ kI26oQ==
                     file_put_contents($this->versionFile, json_encode(array(
                         "id" => $this->infos[0]['id'],
                         "tag_name" => $this->infos[0]['tag_name']
-                                    ), JSON_PRETTY_PRINT));
+                                    )));
                     return true;
                 }
             }

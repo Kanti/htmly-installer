@@ -3973,7 +3973,7 @@ kI26oQ==
                 return array();
             }
             $json = json_decode($fileContent, true);
-            $fileContent = json_encode($json, JSON_PRETTY_PRINT);
+            $fileContent = json_encode($json);
             $this->cachedInfo->set($fileContent);
             return $json;
         }
@@ -4006,7 +4006,7 @@ kI26oQ==
                     file_put_contents($this->versionFile, json_encode(array(
                         "id" => $this->infos[0]['id'],
                         "tag_name" => $this->infos[0]['tag_name']
-                                    ), JSON_PRETTY_PRINT));
+                                    )));
                     return true;
                 }
             }
