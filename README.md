@@ -23,3 +23,6 @@ How to contribute?
 ---------------
 Do a pull request, with a good description.
 I will answer in 3 Days. Most of the time ;)
+
+
+<sub>Powerd by [HubUpdater](https://github.com/kanti/hub-updater)</sub>
