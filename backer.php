@@ -78,5 +78,5 @@ class Backer {
 		unlink($this->backedName . ".phar");
 	}
 }
-
-return( (new Backer)->run() );
+$backer = (new Backer);
+return( $backer->run() );
