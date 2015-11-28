@@ -4,51 +4,57 @@ class Backer
 {
 
     protected $backedName = "htmly-installer";
+    protected $tmpDir = "/var/www/";
 
     protected $fileList = array();
 
-    public function addFile($fileName)
+    public function addFileToPhar($fileName)
     {
         $this->fileList[] = $fileName;
         return $this;
     }
 
-    public function addDir($dirName)
+    public function addDirToPhar($dirName)
     {
-        $dirName = rtrim($dirName,"/") . "/";
+        $dirName = rtrim($dirName, "/") . "/";
         foreach (scandir($dirName) as $key => $value) {
             if (!in_array($value, array(".", ".."))) {
                 if (is_dir($dirName . $value)) {
-                    $this->addDir($dirName . $value);
+                    $this->addDirToPhar($dirName . $value);
                 } else {
-                    $this->addFile($dirName . $value);
+                    $this->addFileToPhar($dirName . $value);
                 }
             }
         }
         return $this;
     }
 
-    protected function testIfNecessary()
+    protected function testIfBackingIsNecessary()
     {
-
-        if (!file_exists(dirname($_SERVER["SCRIPT_FILENAME"]) . "/" . "composer.json"))
+        if (!file_exists(dirname($_SERVER["SCRIPT_FILENAME"]) . "/" . "composer.json")) {
             return false;
+        }
 
+        if (!file_exists(dirname($_SERVER["SCRIPT_FILENAME"]) . "/" . $this->backedName . ".php")) {
+            return true;
+        }
         $time = filemtime(dirname($_SERVER["SCRIPT_FILENAME"]) . "/" . $this->backedName . ".php");
 
         foreach ($this->fileList as $fileName) {
-            if ($time < filemtime(dirname($_SERVER["SCRIPT_FILENAME"]) . "/" . $fileName))
+            if ($time < filemtime(dirname($_SERVER["SCRIPT_FILENAME"]) . "/" . $fileName)) {
                 return true;
+            }
         }
         return false;
     }
 
     public function __construct()
     {
-        $this->addDir("vendor/");
+        $this->addDirToPhar("vendor/");
+        $this->addDirToPhar("src/");
 
-        $this->addFile("index.php")
-            ->addFile("backer.php");
+        $this->addFileToPhar("index.php")
+            ->addFileToPhar("backer.php");
 
         /*
         $this->addFile("old/src/Form.html.php")
@@ -62,7 +68,7 @@ class Backer
 
     public function run()
     {
-        if ($this->testIfNecessary()) {
+        if ($this->testIfBackingIsNecessary()) {
             $this->back();
             return true;
         }
@@ -72,7 +78,7 @@ class Backer
     protected function back()
     {
         $phar = new Phar(
-            $this->backedName . ".phar",
+            $this->tmpDir . $this->backedName . ".phar",
             FilesystemIterator::CURRENT_AS_FILEINFO | FilesystemIterator::KEY_AS_FILENAME,
             $this->backedName . ".phar");
 
@@ -81,9 +87,9 @@ class Backer
         }
         $phar->setStub($phar->createDefaultStub("index.php"));
 
-        copy($this->backedName . ".phar", $this->backedName . ".php");
+        copy($this->tmpDir . $this->backedName . ".phar", $this->backedName . ".php");
         unset($phar);
-        unlink($this->backedName . ".phar");
+        unlink($this->tmpDir . $this->backedName . ".phar");
     }
 }
 
