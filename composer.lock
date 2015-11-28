@@ -1,32 +1,36 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "3515f31f0648cc5c92c074f11f99ec9f",
+    "hash": "d9f09fde941b94a43a9f93553896e196",
+    "content-hash": "78f0c7518413feef55f596c6bbfeea90",
     "packages": [
         {
             "name": "kanti/hub-updater",
-            "version": "v0.3.1",
+            "version": "v0.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Kanti/hub-updater.git",
-                "reference": "105bf291983b1323c5916092cc4e170bf987b00c"
+                "reference": "81dae71f2b3ccd0e3425579ac932a8c6b7b58c5d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Kanti/hub-updater/zipball/105bf291983b1323c5916092cc4e170bf987b00c",
-                "reference": "105bf291983b1323c5916092cc4e170bf987b00c",
+                "url": "https://api.github.com/repos/Kanti/hub-updater/zipball/81dae71f2b3ccd0e3425579ac932a8c6b7b58c5d",
+                "reference": "81dae71f2b3ccd0e3425579ac932a8c6b7b58c5d",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.3.0"
             },
+            "require-dev": {
+                "phpunit/phpunit": "~4.6@dev"
+            },
             "type": "library",
             "autoload": {
                 "psr-4": {
-                    "Kanti\\": ""
+                    "Kanti\\": "src"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -42,7 +46,7 @@
                 }
             ],
             "description": "Simple Github Updater for Web Projects",
-            "time": "2014-12-27 13:59:09"
+            "time": "2015-02-03 09:53:58"
         }
     ],
     "packages-dev": [],
@@ -50,6 +54,7 @@
     "minimum-stability": "stable",
     "stability-flags": [],
     "prefer-stable": false,
+    "prefer-lowest": false,
     "platform": [],
     "platform-dev": []
 }
