@@ -4,7 +4,7 @@ class Backer
 {
 
     protected $backedName = "htmly-installer";
-    protected $tmpDir = "/var/www/";
+    protected $tmpDir = __DIR__;
 
     protected $fileList = array();
 
@@ -50,20 +50,13 @@ class Backer
 
     public function __construct()
     {
-        $this->addDirToPhar("vendor/");
+        $this->addDirToPhar("vendor/composer/");
+        $this->addDirToPhar("vendor/kanti/hub-updater/");
+        $this->addFileToPhar("vendor/autoload.php");
         $this->addDirToPhar("src/");
 
         $this->addFileToPhar("index.php")
             ->addFileToPhar("backer.php");
-
-        /*
-        $this->addFile("old/src/Form.html.php")
-            ->addFile("old/src/Header.html.php")
-            ->addFile("old/src/functions.php")
-            ->addFile("old/src/htaccess.php")
-            ->addFile("old/src/Message.php")
-            ->addFile("old/src/Settings.php");
-	    */
     }
 
     public function run()

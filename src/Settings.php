@@ -17,7 +17,6 @@ class Settings
         "social.google" => "",
         "social.tumblr" => "",
     );
-
     protected $hubUpdaterSettings = array(
         "name" => "danpros/htmly",
         "cache" => "cache/",
