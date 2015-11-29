@@ -1,3 +1,7 @@
+[![Packagist](https://img.shields.io/packagist/l/kanti/hub-updater.svg?style=flat-square)](https://www.gnu.org/licenses/gpl-2.0.html)
+[![Travis](https://img.shields.io/travis/Kanti/htmly-installer.svg?style=flat-square)](https://travis-ci.org/Kanti/htmly-installer/)
+[![Code Climate](https://img.shields.io/codeclimate/github/Kanti/htmly-installer.svg?style=flat-square)](https://codeclimate.com/github/Kanti/htmly-installer)
+[![Code Climate](https://img.shields.io/codeclimate/coverage/github/Kanti/htmly-installer.svg?style=flat-square)](https://codeclimate.com/github/Kanti/htmly-installer/coverage)
 HTMLy installer.php
 ===============
 
