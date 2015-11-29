@@ -1,0 +1,18 @@
+engines:
+  phpcodesniffer:
+    enabled: true
+  phpmd:
+    enabled: true
+    checks:
+      CleanCode/StaticAccess:
+        enabled: false
+      CleanCode/BooleanArgumentFlag:
+        enabled: false
+  fixme:
+    enabled: true
+ratings:
+  paths:
+  - "index.php"
+  - "backer.php"
+  - "src/**.php"
+  - "tests/**.php"
