@@ -56,12 +56,16 @@ class Settings
         if ($dir == '.' || $dir == '..') {
             $dir = '';
         }
-        $dir = trim($dir, '/');
+        $port = '';
+        if ($_SERVER["SERVER_PORT"] != "80") {
+            $port = ':' . $_SERVER["SERVER_PORT"];
+        }
+        $scheme = isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] != 'off' ? 'https' : 'http';
         if ($dir === '') {
-            $this->siteUrl = '//' . trim($_SERVER['SERVER_NAME'], "/") . "/";
+            $this->siteUrl = $scheme . '://' . trim($_SERVER['SERVER_NAME'], "/") . $port . "/";
             return;
         }
-        $this->siteUrl = '//' . trim($_SERVER['SERVER_NAME'], "/") . "/" . $dir . '/';
+        $this->siteUrl = $scheme . '://' . trim($_SERVER['SERVER_NAME'], "/") . $port . "/" . $dir . '/';
     }
 
     protected function overwriteINI($data, $string)
@@ -100,7 +104,10 @@ class Settings
                 'role' => 'admin',
             ), $userFile);
         }
-        file_put_contents(dirname($_SERVER['SCRIPT_FILENAME']) . "/" . "config/users/" . $this->user . ".ini", $userFile);
+        file_put_contents(
+            dirname($_SERVER['SCRIPT_FILENAME']) . "/" . "config/users/" . $this->user . ".ini",
+            $userFile
+        );
     }
 
     protected function testTheEnvironment()
@@ -116,7 +123,7 @@ class Settings
         if (function_exists('apache_get_modules') && !in_array('mod_rewrite', apache_get_modules())) {
             $messages->warning('mod_rewrite must be enabled if you use Apache.');
         }
-        if (!StaticFunctions::is__writable("./")) {
+        if (!StaticFunctions::isWritable("./")) {
             $messages->error('no permission to write in the Directory.');
         }
         return $messages->run();
@@ -125,7 +132,7 @@ class Settings
     public function __construct()
     {
         $messages = $this->testTheEnvironment();
-        if (StaticFunctions::is__writable("./") && !HelperClass::fileExists(".htaccess")) {
+        if (StaticFunctions::isWritable("./") && !HelperClass::fileExists(".htaccess")) {
             file_put_contents(dirname($_SERVER["SCRIPT_FILENAME"]) . "/.htaccess", GetHtaccess::htaccess());
         }
 

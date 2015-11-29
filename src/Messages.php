@@ -33,5 +33,4 @@ class Messages
         }
         return $string;
     }
-
 }

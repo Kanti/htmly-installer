@@ -5,7 +5,7 @@ class FormTemplate
 {
     public static function printForm()
     {
-        if (true): ?>
+        if (true) : ?>
             <form method="POST">
                 <label for="user_name">Username:<span class="required">*</span></label>
                 <input name="user_name" value="" placeholder="Your User Name" required>
@@ -73,7 +73,7 @@ class FormTemplate
                         document.getElementById("disqus").setAttribute("style", "display:none");
                     return a.value;
                 }
-            </script>
-        <?php endif;
+            </script><?php
+        endif;
     }
 }
