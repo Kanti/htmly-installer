@@ -1,19 +1,25 @@
 <?php
-class Message {
+namespace HTMLy;
+
+class Messages
+{
 
     protected $errors = array();
 
-    public function error($message) {
+    public function error($message)
+    {
         $this->errors[] = $message;
     }
 
     protected $warnings = array();
 
-    public function warning($message) {
+    public function warning($message)
+    {
         $this->warnings[] = $message;
     }
 
-    public function run() {
+    public function run()
+    {
         $string = "";
         if (!empty($this->errors)) {
             foreach ($this->errors as $error) {
@@ -27,6 +33,4 @@ class Message {
         }
         return $string;
     }
-
 }
-?>
