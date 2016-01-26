@@ -23,10 +23,19 @@ How does it work?
 4. wait a little bit.
 5. 'tada' your [HTMLy Blog](https://github.com/danpros/htmly) is ready to use.
 
+[it does not work] If You encounter Error's
+---------------
+
+1. Test the old installer [Version v1.2.8](https://github.com/Kanti/htmly-installer/releases/tag/v1.2.8)
+2. Look for your issue on Github [Look](https://github.com/Kanti/htmly-installer/issues?q=is%3Aissue)
+3. Write a new Issue on Github [Write](https://github.com/Kanti/htmly-installer/issues/new)
+
 How to contribute?
 ---------------
 Do a pull request, with a good description.
 I will answer in 3 Days. Most of the time ;)
+
+please use [PSR-2](https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-2-coding-style-guide.md) Codeing style
 
 
 <sub>Powerd by [HubUpdater](https://github.com/kanti/hub-updater)</sub>
